@@ -3,30 +3,30 @@ let timer;
 let isStarted = false;
 function play()
 {
-    if (!isStarted)
-    {
-        countdown(20000000, timer);
-        isStarted = true;
-    }
+    countdown(20000000, timer);
 }
 
 function countdown(milliSecondsTime){
     let el = document.querySelector('.timer');
     timer = setInterval(function(){
         milliSecondsTime = milliSecondsTime - 1000;
-        if(milliSecondsTime/1000 === 0) {
+        if(!isStarted) {
+            el.innerHTML = '';
             clearTimeout(timer);
-            el.innerHTML = 'BOOOOM';
-            isStarted = false;
         }
         else {
-            el.innerHTML = showtime(milliSecondsTime);
+            if (milliSecondsTime / 1000 === 0) {
+                clearTimeout(timer);
+                el.innerHTML = 'BOOOOM';
+                isStarted = false;
+            } else {
+                el.innerHTML = showtime(milliSecondsTime);
+            }
         }
     },1000);
 }
 function showtime(time)
 {
-    time = Number(time);
     let milliseconds = parseInt((time%1000))
         , seconds = parseInt((time/1000)%60)
         , minutes = parseInt((time/(1000*60))%60)
@@ -37,6 +37,31 @@ function showtime(time)
     seconds = (seconds < 10) ? "0" + seconds : seconds;
 
     return hours + ":" + minutes + ":" + seconds;
+}
+
+function start()
+{
+    if (!isStarted) {
+        changeButton();
+        isStarted = true;
+        play();
+    }
+    else {
+        changeButton();
+        isStarted = false;
+    }
+}
+function changeButton()
+{
+    let button = document.querySelector(".play_button");
+    if (!isStarted){
+        button.style.border = "10px solid red";
+        button.style.boxShadow = "0 0 10px red"
+    }
+    else {
+        button.style.border = "10px solid greenyellow";
+        button.style.boxShadow = "0 0 10px greenyellow"
+    }
 }
 
 
