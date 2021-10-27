@@ -3,7 +3,9 @@ let timer;
 let isStarted = false;
 function play()
 {
-    countdown(20000000, timer);
+    times = getTime();
+    console.log(times[0].value + " "+times[1].value + " "+ times[2].value);
+    countdown(times, timer);
 }
 
 function countdown(milliSecondsTime){
@@ -56,12 +58,22 @@ function changeButton()
     let button = document.querySelector(".play_button");
     if (!isStarted){
         button.style.border = "10px solid red";
-        button.style.boxShadow = "0 0 10px red"
+        button.style.boxShadow = "0 0 5px red"
+        button.innerHTML = "stop"
     }
     else {
         button.style.border = "10px solid greenyellow";
-        button.style.boxShadow = "0 0 10px greenyellow"
+        button.style.boxShadow = "0 0 5px greenyellow"
+        button.innerHTML = "start"
     }
+}
+
+function getTime()
+{
+    let selector = document.querySelectorAll('.selector_choose');
+    let seconds = selector[0].value;
+    let minutes = selector[1].value;
+    let hours= selector[2].value;
 }
 
 
