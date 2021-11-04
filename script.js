@@ -1,4 +1,4 @@
-let time = new Date(0, 0, 0, 0, 0, 0, 0);
+let time = new Date(0, 0,0, 0, 0, 0,0);;
 let toTime = time;
 let timeout;
 showTime();
@@ -19,9 +19,8 @@ async function timer(){
     let promise = new Promise((resolve) => {
         showTime()
         if (toTime > time){
-            toTime.setSeconds(toTime.getSeconds()-1);
-            console.log(toTime.getSeconds);
-            timeout = setTimeout(timer, 1000);
+            toTime.setMilliseconds(toTime.getMilliseconds() - 5);
+            timeout = setTimeout(timer, 1);
         }
         else{
             resolve("COPY PASTE");
@@ -37,12 +36,12 @@ async function timer(){
 function setTime()
 {
     let selector = document.querySelectorAll('.selector_choose');
-    let sec = selector[0].value.split(' ')[0]
-    let min = selector[1].value.split(' ')[0]
-    let hour = selector[2].value.split(' ')[0]
-    if (Math.floor(sec + min + hour) !== 0)
+    let ms = selector[0].value.split(' ')[0]
+    let sec = selector[1].value.split(' ')[0]
+    let min = selector[2].value.split(' ')[0]
+    if (Math.floor(ms + sec + min) !== 0)
     {
-        toTime = new Date(0, 0,0, hour, min, sec,0);
+        toTime = new Date(0, 0,0, 0, min, sec,ms);
         return true;
     }
     else
@@ -52,7 +51,10 @@ function setTime()
 function showTime()
 {
     let el = document.querySelector('.timer');
-    el.innerHTML = toTime.toLocaleTimeString();
+    let min = addZero(toTime.getMinutes(), 2);
+    let sec = addZero(toTime.getSeconds(), 2);
+    let ms = addZero(toTime.getMilliseconds(), 3);
+    el.innerHTML = min + ":" + sec + ":" + ms;
 }
 
 function changeButton(isStarted)
@@ -69,3 +71,11 @@ function changeButton(isStarted)
         button.innerHTML = "start"
     }
 }
+function addZero(x ,n)
+{
+    while (x.toString().length < n)
+        x = "0" + x;
+    return x;
+}
+
+
