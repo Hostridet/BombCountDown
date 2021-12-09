@@ -1,4 +1,4 @@
-let time = new Date(0, 0,0, 0, 0, 0,0);;
+let time = new Date(0, 0,0, 0, 0, 0,0);
 let toTime = time;
 let timeout;
 showTime();
@@ -19,8 +19,8 @@ async function timer(){
     let promise = new Promise((resolve) => {
         showTime()
         if (toTime > time){
-            toTime.setMilliseconds(toTime.getMilliseconds() - 5);
-            timeout = setTimeout(timer, 1);
+            toTime.setMilliseconds(toTime.getMilliseconds() - 11);
+            timeout = setTimeout(timer, 11);
         }
         else{
             resolve("COPY PASTE");
